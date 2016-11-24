@@ -2,7 +2,6 @@
 
 #include <contiki.h>
 
-#include <sys/clock.h>
 
 #include "dev/leds.h"
 
@@ -11,6 +10,8 @@
 #include "letmecreate/core/common.h"
 
 #include "letmecreate/core/debug.h"
+
+#include "awa/static.h"
 
 void motion_callback(uint8_t event)
 {
