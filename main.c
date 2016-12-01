@@ -16,6 +16,9 @@
 #define COAP_PORT 6000
 #define BOOTSTRAP_SERVER_URI "coap://[" BOOTSTRAP_IPv6_ADDR "]:15683"
 
+#define STR(s) _STR(s)
+#define _STR(s) #s
+
 typedef struct
 {
     int CarStatus;
@@ -30,7 +33,7 @@ static AwaStaticClient * InitialiseAwaClient()
     AwaStaticClient * client = AwaStaticClient_New();
 
     AwaStaticClient_SetLogLevel(AwaLogLevel_Debug);
-    AwaStaticClient_SetEndPointName(client, "Carpark1");
+    AwaStaticClient_SetEndPointName(client, STR(CLIENT_NAME));
     AwaStaticClient_SetCoAPListenAddressPort(client, "::", COAP_PORT);
     AwaStaticClient_SetBootstrapServerURI(client, BOOTSTRAP_SERVER_URI);
 

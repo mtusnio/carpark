@@ -11,6 +11,9 @@ USE_SERIAL_PADS = 0
 USE_CA8210 = 1
 
 
+CLIENT_NAME?="Carpark1"
+
+CFLAGS += -DCLIENT_NAME=$(CLIENT_NAME)
 CFLAGS += -DVERSION=$(VERSION) -DPROJECT_CONF_H=\"project-conf.h\"
 CFLAGS += -Wall -Wno-pointer-sign
 CFLAGS += -I $(CONTIKI)/platform/$(TARGET)
