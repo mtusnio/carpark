@@ -38,3 +38,6 @@ symbols.h
 *.dSYM/
 *.su
 obj_mikro-e/
+
+# npm
+node_modules
