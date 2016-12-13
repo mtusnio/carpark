@@ -1,0 +1,12 @@
+.carContainer {
+    width: 192px;
+    height: 128px;
+
+}
+
+.car {
+    width: 64px;
+    height: 64px;
+    background-color: red;
+    float: left;
+}

@@ -12,7 +12,7 @@ router.get("/car/:carId", function(req, res, next) {
     carId = req.params.carId;
     output = execSync("awa-server-read -c Carpark" + carId + " /1337/0/1");
     decoder = new StringDecoder('utf-8');
-    res.json({ status: decoder.write(output).slice(-2)[0] });
+    res.json({ id: carId, status: decoder.write(output).slice(-2)[0] });
 });
 
 module.exports = router;
