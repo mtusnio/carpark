@@ -13,5 +13,8 @@ function updateAllCars() {
 }
 
 $( document ).ready(function() {
-    updateAllCars();
+   (function periodicUpdate() {
+	updateAllCars();
+    setTimeout(periodicUpdate, 500);
+    })();
 });
