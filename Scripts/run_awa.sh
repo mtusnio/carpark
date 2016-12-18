@@ -1,4 +1,11 @@
-#!/bin/sh
+#!/bin/bash
+
+if [[ "$1" == "stop" ]]; then
+    killall awa_bootstrapd
+    killall awa_serverd
+    killall awa_clientd
+    exit 0
+fi
 
 awa_bootstrapd -e lo -p 15683 -c bootstrap/localhost.bsc -l ./awa_bootstrap.log -d
 awa_serverd -e lo -p 5683 -i 54321 -l ./awa_server.log -d
