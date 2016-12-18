@@ -2,6 +2,7 @@ var express = require('express');
 var execSync = require('child_process').execSync;
 var StringDecoder = require('string_decoder').StringDecoder;
 var router = express.Router();
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,9 +11,13 @@ router.get('/', function(req, res, next) {
 
 router.get("/car/:carId", function(req, res, next) {
     carId = req.params.carId;
-    output = execSync("awa-server-read -c Carpark" + carId + " /1337/0/1");
-    decoder = new StringDecoder('utf-8');
-    res.json({ id: carId, status: decoder.write(output).slice(-2)[0] });
+    carStatus = 1;
+    path = "/var/carpark/Carpark" + carId;
+    if (fs.existsSync(path)) {
+        output = execSync("cat " + path);
+	carStatus = parseInt(output)
+    }
+    res.json({ id: carId, status: carStatus });
 });
 
 module.exports = router;
