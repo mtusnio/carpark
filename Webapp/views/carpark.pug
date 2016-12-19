@@ -5,7 +5,10 @@ block header
     script(src='/javascript/carpark.js')
 
 block content
-    .carContainer
-        each i in [1, 2, 3, 4, 5, 6]
-            .car(id="car" + i)
-
+    img.carContainer(src="/images/carpark/PARKING-01.png")
+    each i in [1, 2, 3, 4]
+        img.car(id="car" + i, src="/images/carpark/parking_available.png",
+        style='left: ' + (58 + (100 * i)) + 'px; top: 241px')
+    each i in [1, 2, 3, 4]
+        img.car(id="car" + (4  + i), src="/images/carpark/parking_available.png",
+        style='left: ' + (58 + (100 * i)) + 'px; top: 584px')

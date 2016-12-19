@@ -1,12 +1,13 @@
 .carContainer {
-    width: 192px;
-    height: 128px;
-
+    position: absolute;
+    width: 601px;
+    height: 727px;
+    z-index: 0;
 }
 
 .car {
-    width: 64px;
-    height: 64px;
-    background-color: red;
-    float: left;
+    position: absolute;
+    width: 101px;
+    height: 144px;
+    z-index: 1;
 }
