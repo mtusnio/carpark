@@ -18,7 +18,7 @@ Hardware:
 After cloning the repo make sure to get the AwaLWM2M submodule.
 
 ```sh
-    git submodule update --init
+git submodule update --init
 ```
 
 ### Ci40
@@ -26,16 +26,16 @@ After cloning the repo make sure to get the AwaLWM2M submodule.
 A few packages need to be installed on the Ci40, run following commands:
 
 ```sh
-    opkg update
-    opkg install nodejs npm python3 python3-pip awalwm2m
-    pip install future
+opkg update
+opkg install nodejs npm python3 python3-pip awalwm2m
+pip install future
 ```
 
 Now copy over the Scripts and Webapp folders onto your board, as well as copy ipc_core.py, ipc.py, ipc_lwm2m_server.py and ipc_lwm2m_client.py from Clicker/AwaLWM2M/api/python to the Scripts folder on the Ci40. First we will verify whether the Webapp runs properly. Navigate to the Webapp folder and run:
 
 ```sh
-    npm install
-    npm start
+npm install
+npm start
 ```
 
 The bootup might take a while, after it is complete navigate your browser to http://\<ci40_ip\>:3000/carpark and check if you can see the carpark display. You can shut down the webapp for now.
@@ -45,16 +45,16 @@ The bootup might take a while, after it is complete navigate your browser to htt
 Next edit /etc/config/awalwm2m, it should in the end look like this:
 
 ```sh
-    BOOTSTRAP=coap://[fd77:9c74:ddee:c0e7::1]:15683
-    INTERFACE=lowpan0
-    ADDRESS_FAMILY=6
-    VERBOSE=--verbose
+BOOTSTRAP=coap://[fd77:9c74:ddee:c0e7::1]:15683
+INTERFACE=lowpan0
+ADDRESS_FAMILY=6
+VERBOSE=--verbose
 ```
 
 The IP in bootstrap should be either your link-local lowpan0 ip or global as you can find out here:
 
 ```sh
-    ifconfig lowpan0
+ifconfig lowpan0
 ```
 
 Modify /etc/init.d/awa_bootstrapd by removing $FLOW_CONFIG from the start-stop-daemon call, and change LOCAL_CONFIG to /etc/lwm2m/localhost.bsc. Similarly to /etc/config/awalwm2m, your localhost.bsc file should look like this (replace ip as mentioned above):
@@ -82,21 +82,21 @@ Run /etc/init.d/awa_boostrapd restart for the changes to take effect.
 Clone CreatorDev version of Contiki and LetMeCreateIot:
 
 ```sh
-    git clone -b creator https://github.com/Creatordev/contiki
-    git clone https://github.com/mtusnio/LetMeCreateIoT
+git clone -b creator https://github.com/Creatordev/contiki
+git clone https://github.com/mtusnio/LetMeCreateIoT
 ```
 
 Afterwards follow [installation instructions](https://github.com/mtusnio/LetMeCreateIoT#installation) for LMCIoT. Once that is done the only remaining change are the IPv6 defines for the Ci40. Edit project_conf.h and set BOOTSTRAP_IPv6_ADDR to your Ci40's link-local or global IP address. Finally run:
 
 ```sh
-    make CONTIKI=path/to/contiki 
+make CONTIKI=path/to/contiki
 ```
 
 Finally flash the image onto the Clicker.
 
 For extra clickers compile with:
 ```sh
-    make CONTIKI=path/to/contiki CLIENT_NAME=Carpark2
+make CONTIKI=path/to/contiki CLIENT_NAME=Carpark2
 ```
 
 The app recognises clients starting with Carpark and can handle up to 10 of them.
