@@ -13,6 +13,7 @@ Hardware:
 - Ci40
 - At least one 6lowpan clicker with a motion click
 
+To download packages the Ci40 needs to have Internet access, however this is not required to run the webapp itself.
 
 ## Setup
 
@@ -117,7 +118,7 @@ Navigate to the Scripts directory then run:
 ./observer.py &
 ```
 
-This will run the observer script in the background which updates the local cache of motion sensor states which is used by the webapp. Navigate to Webapp and run:
+This will run the observer script in the background which updates the local cache of motion sensor states that is used by the webapp. Navigate to Webapp and run:
 
 ```sh
 npm start
