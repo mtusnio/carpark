@@ -76,14 +76,7 @@ PROCESS_THREAD(main_process, ev, data)
     {
         PRINTF("=====Start=====\n");
 
-        uip_ipaddr_t ipaddr;
-        uip_ip6addr(&ipaddr, BOOTSTRAP_IPv6_ADDR1, BOOTSTRAP_IPv6_ADDR2, BOOTSTRAP_IPv6_ADDR3,
-            BOOTSTRAP_IPv6_ADDR4, BOOTSTRAP_IPv6_ADDR5, BOOTSTRAP_IPv6_ADDR6, BOOTSTRAP_IPv6_ADDR7,
-            BOOTSTRAP_IPv6_ADDR8);
-        uip_ds6_defrt_add(&ipaddr, 0);
-
-        uip_nameserver_update(&ipaddr, UIP_NAMESERVER_INFINITE_LIFETIME);
-
+        ipv6_add_default_route(BOOTSTRAP_IPv6_ADDR, 0);
 
         awaClient = InitialiseAwaClient();
 
