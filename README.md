@@ -1,5 +1,7 @@
 # Carpark
 
+![Carpark](/Images/carpark_example.png)
+
 ## Introduction
 
 A demo which uses the motion sensors to simulate a car park, while also using a local AwaLWM2M daemon & IPC to communicate with a nodejs application displaying the carpark's status.
