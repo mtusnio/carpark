@@ -45,12 +45,12 @@ class CarparkObserver():
         response = self._send_request(request, server.ObserveResponse)
         request = EstablishNotify(session_id = self._session_id)
         response = self._send_request(request)
-        print(response)
 
     def read_data(self, type=None):
         data = self.socket.recv(self.MAX_RECEIVE).decode("utf-8")
 
-        while type is not None and type.MessageType not in data:
+        while type is not None and (type.MessageType not in data or type.Header not in data):
+            print(data)
             data = self.socket.recv(self.MAX_RECEIVE).decode("utf-8")
 
         try:
@@ -83,10 +83,16 @@ except OSError as e:
 
 cache_files = {}
 
-for client in observer.list_clients():
+clients = observer.list_clients()
+for client in clients:
+    print("Attempting to observe {}".format(client))
     observer.observe(client)
     cache_files[client] = "{}/{}".format(CACHE_PATH, client)
     os.system("echo '1' > {}".format(cache_files[client]))
+
+print("=============================================")
+print("Observing clients: {}".format(clients))
+
 while True:
     data = observer.read_data()
     root = ET.fromstring(data)
@@ -104,6 +110,6 @@ while True:
             except KeyError as key_e:
                 print("Key error when writing")
     except Exception as e:
-        print("Failed to traverse {} due to {}".format(ET.tostring(root), e))
+        print("Received message of type {}".format(root.find(".//Type").text))
 
 observer.disconnect();
