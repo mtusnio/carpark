@@ -49,6 +49,10 @@ class CarparkObserver():
 
     def read_data(self, type=None):
         data = self.socket.recv(self.MAX_RECEIVE).decode("utf-8")
+
+        while type is not None and type.MessageType not in data:
+            data = self.socket.recv(self.MAX_RECEIVE).decode("utf-8")
+
         try:
             if type is not None:
                 return type(data)
