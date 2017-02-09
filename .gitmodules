@@ -1,3 +1,7 @@
 [submodule "Clicker/AwaLWM2M"]
 	path = Clicker/AwaLWM2M
 	url = https://github.com/FlowM2M/AwaLWM2M.git
+[submodule "Clicker/tinydtls"]
+	path = Clicker/tinydtls
+	url = https://git.eclipse.org/r/tinydtls/org.eclipse.tinydtls
+	branch = 0016138fe3998552eee3987a1c09da43a23c9fb5
