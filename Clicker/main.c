@@ -18,6 +18,11 @@
 #define STR(s) _STR(s)
 #define _STR(s) #s
 
+#define CARDETECTOR_OBJECT 10241
+#define CARDETECTOR_RESOURCE 1
+#define CARDETECTOR_NAME "CarDetector"
+#define CARDETECTOR_RESOURCE_NAME "Motion"
+
 typedef struct
 {
     int CarStatus;
@@ -43,15 +48,18 @@ static AwaStaticClient * InitialiseAwaClient()
 
 static void DefineObjects(AwaStaticClient * client)
 {
-    AwaStaticClient_DefineObject(client, 1337, "CarDetector", 0, 1);
-    AwaStaticClient_DefineResource(client, 1337, 1, "Motion", AwaResourceType_Integer, 0, 1, AwaResourceOperations_ReadOnly);
-    AwaStaticClient_SetResourceStorageWithPointer(client, 1337, 1, &spot.CarStatus, sizeof(spot.CarStatus), sizeof(spot));
+    AwaStaticClient_DefineObject(client, CARDETECTOR_OBJECT, CARDETECTOR_NAME, 0, 1);
+    AwaStaticClient_DefineResource(client, CARDETECTOR_OBJECT, CARDETECTOR_RESOURCE,
+                                    CARDETECTOR_RESOURCE_NAME, AwaResourceType_Integer,
+                                    0, 1, AwaResourceOperations_ReadOnly);
+    AwaStaticClient_SetResourceStorageWithPointer(client, CARDETECTOR_OBJECT,
+                    CARDETECTOR_RESOURCE, &spot.CarStatus, sizeof(spot.CarStatus), sizeof(spot));
 }
 
 static void SetInitialValues(AwaStaticClient * client)
 {
-    AwaStaticClient_CreateObjectInstance(client, 1337, 0);
-    AwaStaticClient_CreateResource(client, 1337, 0, 1);
+    AwaStaticClient_CreateObjectInstance(client, CARDETECTOR_OBJECT, 0);
+    AwaStaticClient_CreateResource(client, CARDETECTOR_OBJECT, 0, CARDETECTOR_RESOURCE);
     spot.CarStatus = 0;
 }
 
@@ -62,8 +70,9 @@ static void motion_callback(uint8_t event)
     spot.CarStatus = (spot.CarStatus == 1) ? 0 : 1;
     leds_toggle(LED1);
 
-    AwaStaticClient_ResourceChanged(awaClient, 1337, 0, 1);
+    AwaStaticClient_ResourceChanged(awaClient, CARDETECTOR_OBJECT, 0, CARDETECTOR_RESOURCE);
 }
+
 
 PROCESS(main_process, "Main process");
 AUTOSTART_PROCESSES(&main_process);

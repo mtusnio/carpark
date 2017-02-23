@@ -41,7 +41,7 @@ class CarparkObserver():
 
     def observe(self, client_id):
         request = server.ObserveRequest(self._session_id)
-        request.add((client_id, (1337, 0, 1)))
+        request.add((client_id, (10241, 0, 1)))
         response = self._send_request(request, server.ObserveResponse)
         request = EstablishNotify(session_id = self._session_id)
         response = self._send_request(request)
