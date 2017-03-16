@@ -90,6 +90,17 @@
 
 #define UIP_CONF_BUFFER_SIZE           4096
 
-#define BOOTSTRAP_IPv6_ADDR            "fd77:9c74:ddee:c0e7::1"
+#define GLOBAL_IPv6_ADDR
+#define GLOBAL_IPv6_ADDR1              0xfd77
+#define GLOBAL_IPv6_ADDR2              0x9c74
+#define GLOBAL_IPv6_ADDR3              0xddee
+#define GLOBAL_IPv6_ADDR4              0xc0e7
+#define GLOBAL_IPv6_ADDR5              0x0
+#define GLOBAL_IPv6_ADDR6              0x0
+#define GLOBAL_IPv6_ADDR7              0x0
+#define GLOBAL_IPv6_ADDR8              0x0
+
+#define BOOTSTRAP_ADDR                 "deviceserver.creatordev.io"
+#define DEFAULT_ROUTE_IPv6             "fd77:9c74:ddee:c0e7::1"
 
 #endif /* __PROJECT_LWM2M_CONF_H__ */

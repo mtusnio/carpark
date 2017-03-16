@@ -13,7 +13,7 @@
 #include "awa/static.h"
 
 #define COAP_PORT 6000
-#define BOOTSTRAP_SERVER_URI "coap://[" BOOTSTRAP_IPv6_ADDR "]:15683"
+#define BOOTSTRAP_SERVER_URI "coaps://" BOOTSTRAP_ADDR ":15684"
 
 #define STR(s) _STR(s)
 #define _STR(s) #s
@@ -84,7 +84,8 @@ PROCESS_THREAD(main_process, ev, data)
     {
         PRINTF("=====Start=====\n");
 
-        ipv6_add_default_route(BOOTSTRAP_IPv6_ADDR, 0);
+        ipv6_add_default_route(DEFAULT_ROUTE_IPv6, NETWORK_INFINITE_LIFETIME);
+        ipv6_add_nameserver(DEFAULT_ROUTE_IPv6, NETWORK_INFINITE_LIFETIME);
 
         awaClient = InitialiseAwaClient();
 
