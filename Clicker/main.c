@@ -40,6 +40,7 @@ static AwaStaticClient * InitialiseAwaClient()
     AwaStaticClient_SetEndPointName(client, STR(CLIENT_NAME));
     AwaStaticClient_SetCoAPListenAddressPort(client, "::", COAP_PORT);
     AwaStaticClient_SetBootstrapServerURI(client, BOOTSTRAP_SERVER_URI);
+    AwaStaticClient_SetPSK(client, IDENTITY, secret, sizeof(secret));
 
     AwaStaticClient_Init(client);
 
