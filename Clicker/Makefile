@@ -38,6 +38,6 @@ APPS += tinydtls/aes tinydtls/sha2 tinydtls/ecc tinydtls
 SMALL=0
 
 all: main
-	xc32-bin2hex main.$(TARGET)
+	mv main.hex main_$(CLIENT_NAME).hex
 
 include $(CONTIKI)/Makefile.include
