@@ -32,15 +32,50 @@ typedef struct
 static ParkingSpot spot;
 static AwaStaticClient * awaClient = NULL;
 
+uint8_t secret[sizeof(STR(SECRET))/2];
+
+
+static int StringToBytes(const char * hex, uint8_t * secret)
+{
+    int i;
+
+    if(secret == NULL) {
+        fprintf(stderr, "Null bytes array\n");
+        return -1;
+    }
+
+    if(hex == NULL) {
+        fprintf(stderr, "Null hex string\n");
+        return -1;
+    }
+
+    if(strlen(hex) % 2 != 0) {
+        fprintf(stderr, "String length is not divisible by two\n");
+        return -1;
+    }
+
+    for(i = 0; i < strlen(hex); i += 2) {
+        char byte_string[3] = { hex[i], hex[i+1], '\0' };
+        secret[i/2] = (uint8_t)strtol(byte_string, NULL, 16);
+    }
+
+    return 0;
+}
+
 static AwaStaticClient * InitialiseAwaClient()
 {
+    if(StringToBytes(STR(SECRET), secret) != 0) {
+        fprintf(stderr, "Failed to convert the PSK\n");
+        return NULL;
+    }
+
     AwaStaticClient * client = AwaStaticClient_New();
 
     AwaStaticClient_SetLogLevel(AwaLogLevel_Debug);
     AwaStaticClient_SetEndPointName(client, STR(CLIENT_NAME));
     AwaStaticClient_SetCoAPListenAddressPort(client, "::", COAP_PORT);
     AwaStaticClient_SetBootstrapServerURI(client, BOOTSTRAP_SERVER_URI);
-    AwaStaticClient_SetPSK(client, IDENTITY, secret, sizeof(secret));
+    AwaStaticClient_SetPSK(client, STR(IDENTITY), secret, sizeof(secret));
 
     AwaStaticClient_Init(client);
 
@@ -89,6 +124,11 @@ PROCESS_THREAD(main_process, ev, data)
         ipv6_add_nameserver(DEFAULT_ROUTE_IPv6, NETWORK_INFINITE_LIFETIME);
 
         awaClient = InitialiseAwaClient();
+
+        if(!awaClient) {
+            fprintf(stderr, "Awa client not initialised\n");
+            return -1;
+        }
 
         DefineObjects(awaClient);
         SetInitialValues(awaClient);
