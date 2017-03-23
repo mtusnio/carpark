@@ -100,6 +100,9 @@
 #define GLOBAL_IPv6_ADDR7              0x0
 #define GLOBAL_IPv6_ADDR8              0x0
 
+
+#define RESOLV_CONF_SUPPORTS_MDNS  0
+
 #define BOOTSTRAP_ADDR                 "deviceserver.creatordev.io"
 #define DEFAULT_ROUTE_IPv6             "fd77:9c74:ddee:c0e7::1"
 
